@@ -1,0 +1,7 @@
+# Ігнорувати всі файли та папки, пов'язані з node.js
+node_modules/
+npm-debug.log
+yarn-error.log
+
+# Ігнорувати всі файли та папки, пов'язані з ffmpeg
+ffmpeg/
