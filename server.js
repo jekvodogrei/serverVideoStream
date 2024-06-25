@@ -49,7 +49,7 @@ const VideoServer = mongoose.model("VideoServer", videoServerSchema);
 const Camera = mongoose.model("Camera", cameraSchema);
 const User = mongoose.model("User", userSchema);
 
-mongoose.connect("mongodb://localhost:27017/triolan", {});
+mongoose.connect("mongodb://91.196.177.159:27017/triolan", {});
 
 function delay(ms) {
    return new Promise((resolve) => setTimeout(resolve, ms));
@@ -76,8 +76,8 @@ db.once("open", async function () {
 
 const dbConfig = [
    {
-      url: "mongodb://localhost:27017/triolan",
-      videoServer: "http://localhost:3007",
+      url: "mongodb://91.196.177.159:27017/triolan",
+      videoServer: "http://91.196.177.159:3007",
    },
 ];
 
