@@ -1,4 +1,4 @@
-name: Deploy to Server
+name: Deploy to Stream Server
 
 on:
   push:
@@ -24,16 +24,18 @@ jobs:
 
       - name: Build and push Docker image
         run: |
-          docker build -t yourusername/yourapp:latest .
-          docker push yourusername/yourapp:latest
+          docker build -t yourusername/serverVideoStream:latest .
+          docker push yourusername/serverVideoStream:latest
 
       - name: Deploy to server
         env:
           SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+          SERVER_IP: ${{ secrets.SERVER_IP_STREAM }}
+          SERVER_USER: ${{ secrets.SERVER_USER_STREAM }}
         run: |
-          ssh -o StrictHostKeyChecking=no user@server_ip << 'EOF'
-            docker pull yourusername/yourapp:latest
-            docker stop yourapp || true
-            docker rm yourapp || true
-            docker run -d --name yourapp -p 3001:3001 yourusername/yourapp:latest
+          ssh -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa ${{ env.SERVER_USER }}@${{ env.SERVER_IP }} << 'EOF'
+            docker pull yourusername/serverVideoStream:latest
+            docker stop serverVideoStream || true
+            docker rm serverVideoStream || true
+            docker run -d --name serverVideoStream -p 3001:3001 yourusername/serverVideoStream:latest
           EOF
