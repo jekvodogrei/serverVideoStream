@@ -24,8 +24,8 @@ jobs:
 
          - name: Build and push Docker image
            run: |
-              docker build -t yourusername/servervideostream:latest .
-              docker push yourusername/servervideostream:latest
+              docker build -t jekvodogrei/servervideostream:latest .
+              docker push jekvodogrei/servervideostream:latest
 
          - name: Deploy to server
            env:
@@ -34,8 +34,8 @@ jobs:
               SERVER_USER: ${{ secrets.SERVER_USER_STREAM }}
            run: |
               ssh -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa ${{ env.SERVER_USER }}@${{ env.SERVER_IP }} << 'EOF'
-                docker pull yourusername/servervideostream:latest
+                docker pull jekvodogrei/servervideostream:latest
                 docker stop servervideostream || true
                 docker rm servervideostream || true
-                docker run -d --name servervideostream -p 3001:3001 yourusername/servervideostream:latest
+                docker run -d --name servervideostream -p 3001:3001 jekvodogrei/servervideostream:latest
               EOF
