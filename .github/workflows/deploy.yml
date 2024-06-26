@@ -39,6 +39,3 @@ jobs:
                 docker rm servervideostream || true
                 docker run -d --name servervideostream -p 3001:3001 yourusername/servervideostream:latest
               EOF
-
-
-              name: Deploy
