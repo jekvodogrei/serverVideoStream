@@ -33,6 +33,10 @@ jobs:
               SERVER_IP: ${{ secrets.SERVER_IP_STREAM }}
               SERVER_USER: ${{ secrets.SERVER_USER_STREAM }}
            run: |
+              mkdir -p ~/.ssh
+              echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
+              chmod 600 ~/.ssh/id_rsa
+
               ssh -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa ${{ env.SERVER_USER }}@${{ env.SERVER_IP }} << 'EOF'
                 docker pull jekvodogrei/servervideostream:latest
                 docker stop servervideostream || true
