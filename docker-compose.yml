@@ -1,0 +1,27 @@
+version: "3"
+services:
+   app:
+      build: .
+      ports:
+         - "3001:3001"
+      depends_on:
+         - mongo
+      networks:
+         - app-network
+      environment:
+         MONGO_URL: mongodb://mongo:27017/triolan
+
+   mongo:
+      image: mongo:4.4
+      ports:
+         - "27017:27017"
+      networks:
+         - app-network
+      volumes:
+         - mongo-data:/data/db
+
+networks:
+   app-network:
+
+volumes:
+   mongo-data:

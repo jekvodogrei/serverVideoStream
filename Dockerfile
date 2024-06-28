@@ -1,20 +1,20 @@
-# Вкажіть базовий образ
-FROM node:14
+# Use an official Node.js runtime as a parent image
+FROM node:20
 
-# Встановіть робочу директорію всередині контейнера
-WORKDIR /app
+# Set the working directory
+WORKDIR /
 
-# Скопіюйте package.json і package-lock.json (якщо є)
+# Install dependencies
 COPY package*.json ./
 
-# Встановіть залежності
 RUN npm install
 
-# Скопіюйте решту коду програми
+# Copy the rest of the application
 COPY . .
 
-# Відкрийте порт
+# Expose the port the app runs on
 EXPOSE 3001
 
-# Вкажіть команду для запуску додатка
+# Run the application
 CMD ["node", "server.js"]
+
